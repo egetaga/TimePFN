@@ -13,10 +13,13 @@ To generate synthetic datasets for the pretraining task, please refer to the dir
 ## Citation
 
 ```
-@article{taga2025timepfn,
-  title={TimePFN: Effective Multivariate Time Series Forecasting with Synthetic Data},
-  author={Taga, Ege Onur and Ildiz, M Emrullah and Oymak, Samet},
-  journal={arXiv preprint arXiv:2502.16294},
+@inproceedings{taga2025timepfn,
+  title={TimePFN: Effective multivariate time series forecasting with synthetic data},
+  author={Taga, Ege Onur and Ildiz, Muhammed Emrullah and Oymak, Samet},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={39},
+  number={19},
+  pages={20761--20769},
   year={2025}
 }
 ```
