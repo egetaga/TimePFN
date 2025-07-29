@@ -153,14 +153,14 @@ def sample_from_gp_prior_efficient(
     return ts
 
 
-def generate_time_series(dirichlet_min, dirichlet_max, scale, weibull_shape, weibul_scale, max_kernels: int = 5, num_channels: int = 10):
+def generate_time_series(dirichlet_min, dirichlet_max, weibull_shape, weibul_scale, max_kernels: int = 5, num_channels: int = 10):
     """Generate a synthetic time series from LMC_Synth.
     """
     while True:
         X = np.linspace(0, 1, LENGTH)
 
         #sample from weibull the number of latent functions
-        latent_num = np.rint(np.random.weibull(weibull_shape, weibul_scale)*scale + 1)
+        latent_num = np.rint(np.random.weibull(weibull_shape, 1)*weibul_scale + 1)
         latent_num = np.clip(latent_num, max(2, num_channels//20), num_channels)
         latent_num = int(latent_num[0])
         
@@ -201,7 +201,6 @@ if __name__ == "__main__":
     parser.add_argument("-L", "--length", type=int, default=1024)
     parser.add_argument("-M", "--dirichlet_min", type=float)
     parser.add_argument("-X", "--dirichlet_max", type=float)
-    parser.add_argument("-S", "--scale", type=float)
     parser.add_argument("-W", "--weibull_shape", type=float)
     parser.add_argument("-Z", "--weibul_scale", type=float)
 
@@ -211,7 +210,7 @@ if __name__ == "__main__":
     LENGTH = args.length
 
     generated_dataset = Parallel(n_jobs=-1)(
-        delayed(generate_time_series)(max_kernels=args.max_kernels, num_channels=args.num_channels, dirichlet_min = args.dirichlet_min, dirichlet_max = args.dirichlet_max, scale = args.scale, weibull_shape = args.weibull_shape, weibul_scale = args.weibul_scale)
+        delayed(generate_time_series)(max_kernels=args.max_kernels, num_channels=args.num_channels, dirichlet_min = args.dirichlet_min, dirichlet_max = args.dirichlet_max, weibull_shape = args.weibull_shape, weibul_scale = args.weibul_scale)
         for _ in tqdm(range(args.num_series))
     )
 
